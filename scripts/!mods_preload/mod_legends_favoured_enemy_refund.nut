@@ -11,7 +11,7 @@
 
 // Queue the mod after Legends mod; Also make incompatible with Andrew's Legends Additions mods (since this is making a standalone mod of one of its features)
 // More info about how to use mods_queue can be found at the Nexus page for Modding Script Hooks: https://www.nexusmods.com/battlebrothers/mods/42
-::mods_queue(::LegendsFavouredEnemyRefund.ID, "mod_legends, !mod_LA", function() {
+::mods_queue(::LegendsFavouredEnemyRefund.ID, "mod_msu(>=1.2.4), mod_legends(>=16.2.3), !mod_LA", function() {
     // Define mod object so we can use MSU systems ( see https://github.com/MSUTeam/MSU/wiki/Mod )
     ::LegendsFavouredEnemyRefund.Mod <- ::MSU.Class.Mod(::LegendsFavouredEnemyRefund.ID, ::LegendsFavouredEnemyRefund.Version, ::LegendsFavouredEnemyRefund.Name);
     
