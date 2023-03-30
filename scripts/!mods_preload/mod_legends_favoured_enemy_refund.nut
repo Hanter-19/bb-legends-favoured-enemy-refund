@@ -43,6 +43,27 @@
         ::LegendsFavouredEnemyRefund.Utils.updateRosterSkillProgressAndAllTooltips();
     })
 
+    // Add Mod Setting spage for debug logging configurations
+    local loggingPage = ::LegendsFavouredEnemyRefund.Mod.ModSettings.addPage("Logging");
+    // Set Debug mode off by default, but make it configurable in MSU Mod Settings
+    ::LegendsFavouredEnemyRefund.Mod.Debug.disable();
+    local debugBoolean = loggingPage.addBooleanSetting("DebugLogging", false, "Debug Logging", "Enable or disable Debug Logging for this Mod")
+    debugBoolean.addCallback( function ( _data = null ) {
+        if ( _data ) {
+            ::LegendsFavouredEnemyRefund.Mod.Debug.enable();
+        } else {
+            ::LegendsFavouredEnemyRefund.Mod.Debug.disable();
+        }
+    });
+    // Add a validator button to test whether debug mode is enabled or disabled
+    local validationButton = loggingPage.addButtonSetting(  "ValidationButton",
+                                                            "Click to Print", 
+                                                            "Validate Logging", 
+                                                            "Click on this button to print a line in the log file so you can validate that debug logging is enabled");
+    validationButton.addCallback( function ( _data = null ) {
+        ::LegendsFavouredEnemyRefund.Mod.Debug.printLog("Validate Logging button clicked");
+    });
+
     // Run the following so that any new instantiations of related objects before making any adjustments to the configurable value will have their tooltips updated
     ::LegendsFavouredEnemyRefund.Utils.updatePerkDefObjectsTooltips();
     ::LegendsFavouredEnemyRefund.Utils.updateConstStringsPerkDescriptions();
