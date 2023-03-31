@@ -24,12 +24,12 @@
     o.getTooltip = function() {
         
         // Maintain existing behaviour by calling the older version first
-        local resp = old_getTooltip();
+        local ret = old_getTooltip();
         
         // Add additional tooltip about the perk point refund
         if (this.getContainer().getActor().getFlags().has(this.m.ID)) {
             // Perk Point has been refunded
-            resp.push({
+            ret.push({
                 id = 15,
                 type = "hint",
                 icon = "ui/icons/unlocked_small.png",
@@ -37,7 +37,7 @@
             });
         } else {
             // Need X more kills to refund the perk point
-            resp.push({
+            ret.push({
                 id = 15,
                 type = "hint",
                 icon = "ui/icons/special.png",
@@ -45,6 +45,6 @@
             });
         }
         
-        return resp;
+        return ret;
     };
 });
