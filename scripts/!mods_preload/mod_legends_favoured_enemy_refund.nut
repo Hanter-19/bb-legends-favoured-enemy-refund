@@ -1,7 +1,7 @@
 // Create the object representing this mod
 // First we populate basic information about this mod
 ::LegendsFavouredEnemyRefund <- {
-    Version = "1.1.0",
+    Version = "2.0.0",
     ID = "mod_legends_favoured_enemy_refund",
     Name = "Legends Favoured Enemy Perk Point Refund",
 };
@@ -33,15 +33,20 @@
     // Add Mod Settings page
     // Note: This script must be triggered within /scripts/!mods_preload directory, otherwise MSU will not add the mod settings page 
     local page = ::LegendsFavouredEnemyRefund.Mod.ModSettings.addPage("Mod Settings");
-    // Make the number of kills required for the perk point refund configurable, with a default value of 50
-    page.addRangeSetting("KillsForRefund", 50, 1, 100, 1, "Kills For Refund", "Set the number of kills required for the favoured enemy perk to refund its perk point")
-    // Define behaviour for after the KillsForRefund value is changed
-    ::LegendsFavouredEnemyRefund.Mod.ModSettings.getSetting("KillsForRefund").addAfterChangeCallback( function ( _oldValue ) {
-        ::LegendsFavouredEnemyRefund.Mod.Debug.printLog(format("Updating KillsForRefund value from %s to %s", _oldValue + "", this.getValue() + ""));
+
+    // Dynamically make the kills needed for each type of enemy before the refund configurable, with a default value of 50
+    foreach (id in ::LegendsFavouredEnemyRefund.Const.FavouredEnemyPerkIDs) {
+        
+        local rangeSetting = page.addRangeSetting(id, 50, 1, 100, 1, ::Const.Perks.LookupMap[id].Name, "Set the number of kills for the enemy type required for this favoured enemy perk to refund its perk point");
+        
+        // Define behaviour for after the configurable vale is changed
+        rangeSetting.addAfterChangeCallback( function ( _oldValue ) {
+        ::LegendsFavouredEnemyRefund.Mod.Debug.printLog(format("Updating required kills for %s from %s to %s", id, _oldValue + "", this.getValue() + ""));
         ::LegendsFavouredEnemyRefund.Utils.updatePerkDefObjectsTooltips();
         ::LegendsFavouredEnemyRefund.Utils.updateConstStringsPerkDescriptions();
         ::LegendsFavouredEnemyRefund.Utils.updateRosterSkillProgressAndAllTooltips();
-    })
+        });
+    }
 
     // Add Mod Setting spage for debug logging configurations
     local loggingPage = ::LegendsFavouredEnemyRefund.Mod.ModSettings.addPage("Logging");
