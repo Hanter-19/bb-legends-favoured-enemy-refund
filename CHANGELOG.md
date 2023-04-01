@@ -1,3 +1,8 @@
+# 2.0.0
+- The number of kills required to refund the perk point is now customizable based on the enemy type
+- There are default values for each enemy type
+- Added various settings in the Mod Settings to configure the above
+
 # 1.1.0
 - Add MSU Registry system which will notify users when a newer release build is available on Github
 - Coding convention: move hook script(s) into hooks folder

@@ -1,7 +1,7 @@
 // Create the object representing this mod
 // First we populate basic information about this mod
 ::LegendsFavouredEnemyRefund <- {
-    Version = "1.1.0",
+    Version = "2.0.0",
     ID = "mod_legends_favoured_enemy_refund",
     Name = "Legends Favoured Enemy Perk Point Refund",
 };
@@ -20,49 +20,21 @@
     ::LegendsFavouredEnemyRefund.Mod.Registry.addModSource(::MSU.System.Registry.ModSourceDomain.GitHub, "https://github.com/Hanter-19/bb-legends-favoured-enemy-refund");
     ::LegendsFavouredEnemyRefund.Mod.Registry.setUpdateSource(::MSU.System.Registry.ModSourceDomain.GitHub)
     
-    // Enable all MSU Debug logging for this Mod ( see https://github.com/MSUTeam/MSU/wiki/Debug )
-    ::LegendsFavouredEnemyRefund.Mod.Debug.enable();
+    // Enable all MSU Debug logging for this Mod ( see https://github.com/MSUTeam/MSU/wiki/Debug ) - leave it commented out unless I'm doing dev debugging.
+    // ::LegendsFavouredEnemyRefund.Mod.Debug.enable();
 
     // Initialization tasks
-    ::include("legends_favoured_enemy_refund/const.nut");
+    ::include("mod_legends_favoured_enemy_refund/const.nut");
+    // Prepare default kills required values
+    ::include("mod_legends_favoured_enemy_refund/config/defaults.nut");
     // Define utility functions for later use
-    ::include("legends_favoured_enemy_refund/utils.nut");
+    ::include("mod_legends_favoured_enemy_refund/utils.nut");
     // Hook existing legends_favoured_enemy_skill object 
-    ::include("legends_favoured_enemy_refund/hooks/skills/legends_favoured_enemy_skill.nut");
+    ::include("mod_legends_favoured_enemy_refund/hooks/skills/legends_favoured_enemy_skill.nut");
 
     // Add Mod Settings page
-    // Note: This script must be triggered within /scripts/!mods_preload directory, otherwise MSU will not add the mod settings page 
-    local page = ::LegendsFavouredEnemyRefund.Mod.ModSettings.addPage("Mod Settings");
-    // Make the number of kills required for the perk point refund configurable, with a default value of 50
-    page.addRangeSetting("KillsForRefund", 50, 1, 100, 1, "Kills For Refund", "Set the number of kills required for the favoured enemy perk to refund its perk point")
-    // Define behaviour for after the KillsForRefund value is changed
-    ::LegendsFavouredEnemyRefund.Mod.ModSettings.getSetting("KillsForRefund").addAfterChangeCallback( function ( _oldValue ) {
-        ::LegendsFavouredEnemyRefund.Mod.Debug.printLog(format("Updating KillsForRefund value from %s to %s", _oldValue + "", this.getValue() + ""));
-        ::LegendsFavouredEnemyRefund.Utils.updatePerkDefObjectsTooltips();
-        ::LegendsFavouredEnemyRefund.Utils.updateConstStringsPerkDescriptions();
-        ::LegendsFavouredEnemyRefund.Utils.updateRosterSkillProgressAndAllTooltips();
-    })
-
-    // Add Mod Setting spage for debug logging configurations
-    local loggingPage = ::LegendsFavouredEnemyRefund.Mod.ModSettings.addPage("Logging");
-    // Set Debug mode off by default, but make it configurable in MSU Mod Settings
-    ::LegendsFavouredEnemyRefund.Mod.Debug.disable();
-    local debugBoolean = loggingPage.addBooleanSetting("DebugLogging", false, "Debug Logging", "Enable or disable Debug Logging for this Mod")
-    debugBoolean.addCallback( function ( _data = null ) {
-        if ( _data ) {
-            ::LegendsFavouredEnemyRefund.Mod.Debug.enable();
-        } else {
-            ::LegendsFavouredEnemyRefund.Mod.Debug.disable();
-        }
-    });
-    // Add a validator button to test whether debug mode is enabled or disabled
-    local validationButton = loggingPage.addButtonSetting(  "ValidationButton",
-                                                            "Click to Print", 
-                                                            "Validate Logging", 
-                                                            "Click on this button to print a line in the log file so you can validate that debug logging is enabled");
-    validationButton.addCallback( function ( _data = null ) {
-        ::LegendsFavouredEnemyRefund.Mod.Debug.printLog("Validate Logging button clicked");
-    });
+    // Note: This script must be triggered within /scripts/!mods_preload directory, otherwise MSU will not add the mod settings page
+    ::include("mod_legends_favoured_enemy_refund/settings/mod_settings.nut");
 
     // Run the following so that any new instantiations of related objects before making any adjustments to the configurable value will have their tooltips updated
     ::LegendsFavouredEnemyRefund.Utils.updatePerkDefObjectsTooltips();
