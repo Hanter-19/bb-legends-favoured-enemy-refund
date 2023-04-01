@@ -9,7 +9,7 @@
     o.onUpdate = function( _properties ) {
 
         //if perk id hasn't been added yet, and you have more than the configured number of kills of that favored enemy,
-        if (!this.getContainer().getActor().getFlags().has(this.m.ID) && this.getTotalKillStats().Kills.tointeger() >= ::LegendsFavouredEnemyRefund.Mod.ModSettings.getSetting("KillsForRefund").getValue()) {
+        if (!this.getContainer().getActor().getFlags().has(this.m.ID) && this.getTotalKillStats().Kills.tointeger() >= ::LegendsFavouredEnemyRefund.Mod.ModSettings.getSetting(this.m.ID).getValue()) {
             ::LegendsFavouredEnemyRefund.Mod.Debug.printLog("Refunding perk point for flag: " + this.m.ID);
             this.getContainer().getActor().getFlags().add(this.m.ID);
             this.getContainer().getActor().m.PerkPoints += 1;
@@ -41,7 +41,7 @@
                 id = 15,
                 type = "hint",
                 icon = "ui/icons/special.png",
-                text = "Kill " + (::LegendsFavouredEnemyRefund.Mod.ModSettings.getSetting("KillsForRefund").getValue() - this.getTotalKillStats().Kills) + " more of these favoured enemies to refund the perk point spent on this perk."
+                text = "Kill " + (::LegendsFavouredEnemyRefund.Mod.ModSettings.getSetting(this.m.ID).getValue() - this.getTotalKillStats().Kills) + " more of these favoured enemies to refund the perk point spent on this perk."
             });
         }
         
