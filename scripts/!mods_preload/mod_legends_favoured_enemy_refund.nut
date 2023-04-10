@@ -31,6 +31,8 @@
     ::include("mod_legends_favoured_enemy_refund/utils.nut");
     // Hook existing legend_favoured_enemy_skill object 
     ::include("mod_legends_favoured_enemy_refund/hooks/skills/legend_favoured_enemy_skill.nut");
+    // Hook existing perk_legend_favoured_enemy_master_archer object specifically because it overrides the inherited onUpdate() function from legend_favoured_enemy_skill
+    ::include("mod_legends_favoured_enemy_refund/hooks/skills/perks/perk_legend_favoured_enemy_master_archer.nut");
 
     // Add Mod Settings page
     // Note: This script must be triggered within /scripts/!mods_preload directory, otherwise MSU will not add the mod settings page
