@@ -1,7 +1,7 @@
 // Create the object representing this mod
 // First we populate basic information about this mod
 ::LegendsFavouredEnemyRefund <- {
-    Version = "2.0.0",
+    Version = "2.0.1",
     ID = "mod_legends_favoured_enemy_refund",
     Name = "Legends Favoured Enemy Perk Point Refund",
 };
