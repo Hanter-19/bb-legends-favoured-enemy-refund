@@ -29,8 +29,8 @@
     ::include("mod_legends_favoured_enemy_refund/config/defaults.nut");
     // Define utility functions for later use
     ::include("mod_legends_favoured_enemy_refund/utils.nut");
-    // Hook existing legends_favoured_enemy_skill object 
-    ::include("mod_legends_favoured_enemy_refund/hooks/skills/legends_favoured_enemy_skill.nut");
+    // Hook existing legend_favoured_enemy_skill object 
+    ::include("mod_legends_favoured_enemy_refund/hooks/skills/legend_favoured_enemy_skill.nut");
 
     // Add Mod Settings page
     // Note: This script must be triggered within /scripts/!mods_preload directory, otherwise MSU will not add the mod settings page
