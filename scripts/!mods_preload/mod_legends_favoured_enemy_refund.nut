@@ -1,7 +1,7 @@
 // Create the object representing this mod
 // First we populate basic information about this mod
 ::LegendsFavouredEnemyRefund <- {
-    Version = "2.0.1",
+    Version = "2.0.2",
     ID = "mod_legends_favoured_enemy_refund",
     Name = "Legends Favoured Enemy Perk Point Refund",
 };
@@ -33,6 +33,8 @@
     ::include("mod_legends_favoured_enemy_refund/hooks/skills/legend_favoured_enemy_skill.nut");
     // Hook existing perk_legend_favoured_enemy_master_archer object specifically because it overrides the inherited onUpdate() function from legend_favoured_enemy_skill
     ::include("mod_legends_favoured_enemy_refund/hooks/skills/perks/perk_legend_favoured_enemy_master_archer.nut");
+    // Hook existing actor object to handle resetPerks scenarios
+    ::include("mod_legends_favoured_enemy_refund/hooks/entity/tactical/actor/actor.nut");
 
     // Add Mod Settings page
     // Note: This script must be triggered within /scripts/!mods_preload directory, otherwise MSU will not add the mod settings page
