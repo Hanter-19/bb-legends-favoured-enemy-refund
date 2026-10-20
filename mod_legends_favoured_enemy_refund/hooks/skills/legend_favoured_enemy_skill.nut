@@ -78,15 +78,15 @@
         return ret;
     };
 
-    local old_getUnactivatedPerkTooltipHints = o.getUnactivatedPerkTooltipHints;
-    o.getUnactivatedPerkTooltipHints = function(_actor = null) {
-        local ret = old_getUnactivatedPerkTooltipHints(_actor);
+    local old_getDynamicTooltip = o.getDynamicTooltip;
+    o.getDynamicTooltip = function(_actor = null) {
+        local ret = old_getDynamicTooltip(_actor);
         local stats = this.getTotalKillStats(_actor);
         local strength = stats.Strength;
 
         local t = "";
         local p = [];
-        if (stats.Strength >= ::LegendsFavouredEnemyRefund.Const.MaxStrength) {
+        if (strength >= ::LegendsFavouredEnemyRefund.Const.MaxStrength) {
             t = "After activating this perk, the perk point will immediately be refunded because the maximum bonus has already been achieved";
         } else {
             // The remaining increase required for refund is either the configured value, or whatever is left till the maximum strength if it is less than the configured value
