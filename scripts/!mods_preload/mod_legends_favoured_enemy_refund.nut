@@ -18,7 +18,7 @@
     // Enable MSU Registry system for Update Checking ( see https://github.com/MSUTeam/MSU/wiki/Registry )
     // This will notify users if there is a newer version of the mod on the configured GitHub repository
     ::LegendsFavouredEnemyRefund.Mod.Registry.addModSource(::MSU.System.Registry.ModSourceDomain.GitHub, "https://github.com/Hanter-19/bb-legends-favoured-enemy-refund");
-    ::LegendsFavouredEnemyRefund.Mod.Registry.setUpdateSource(::MSU.System.Registry.ModSourceDomain.GitHub)
+    ::LegendsFavouredEnemyRefund.Mod.Registry.setUpdateSource(::MSU.System.Registry.ModSourceDomain.GitHub);
     
     // Enable all MSU Debug logging for this Mod ( see https://github.com/MSUTeam/MSU/wiki/Debug ) - leave it commented out unless I'm doing dev debugging.
     // ::LegendsFavouredEnemyRefund.Mod.Debug.enable();
